@@ -1,62 +1,33 @@
-#include <iostream> 
-#include <cmath>  // Для використання математичних функцій 
+#include <stdio.h>
+#include <math.h>
 
-using namespace std; 
+// Функція для обчислення значення y
+double calculate_y(double x, double a, double b) {
+    if (x <= 0) {
+        return exp(-x) + b; // e^(-x) + b
+    } else if (x > 0 && x < 1) {
+        return pow(a * a + 1 + x, 1.0 / 5.0); // (a^2 + 1 + x)^(1/5)
+    } else {
+        return b + sqrt(x); // b + sqrt(x)
+    }
+}
 
-  
+int main() {
+    double x, a, b, y;
 
-int main() {   
+    // Введення параметрів a, b та змінної x
+    printf("Введіть параметр a: ");
+    scanf("%lf", &a);
+    printf("Введіть параметр b: ");
+    scanf("%lf", &b);
+    printf("Введіть змінну x: ");
+    scanf("%lf", &x);
 
-    // Введення початкових та кінцевих значень     
+    // Обчислення значення y
+    y = calculate_y(x, a, b);
 
-    double x1 = 4.3; 
+    // Виведення результату
+    printf("Результат: y = %.5f\n", y);
 
-    double x2 = 13.9; 
-
-    double h = 1.2; 
-
-    double a = 1.35; 
-
-    double b = 8.4; 
-
-  
-
-    // Змінні для підрахунку суми та кількості y > 1  
-
-    double sum = 0; 
-
-    int count = 0; 
-
-  
-
-    // Цикл для обчислення значень y для кожного x в інтервалі  
-
-    for (double x = x1; x <= x2; x += h) { 
-
-        double y = pow(1 + sqrt(a * x + b), 0.25) / (pow(sin(b * x), 2) + a);  // Обчислення y 
-
-  
-
-        if (y > 1 && y < 3) {  // Перевіряємо, чи y більше за 1 та менше за 3 
-
-            sum += y; 
-
-            count++; 
-
-        } 
-
-    } 
-
-  
-
-    // Виведення результатів  
-
-    cout << "Сума значень 1 < y < 3: " << sum << endl; 
-
-    cout << "Кількість значень 1 < y < 3: " << count << endl; 
-
-  
-
-    return 0; 
-
-} 
+    return 0;
+}
