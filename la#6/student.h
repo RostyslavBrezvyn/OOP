@@ -1,43 +1,29 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#include <string>
 #include <array>
+#include <string>
 #include <iostream>
 
-const int SIZE = 3;  // Кількість студентів
+const size_t SIZE = 100;
 
-// Структура для зберігання інформації про іспит студента
-struct student_exam_t {
+struct student_s_t {
+    int id;
     std::string name;
-    int ticketNumber;
+    int course;
     int grade;
-
-    bool isValid() const {
-        return !name.empty() && ticketNumber > 0 && grade >= 0 && grade <= 100;
-    }
 };
 
-// Клас для управління інформацією про іспит
-class Exam {
+class Student {
 private:
-    std::array<student_exam_t, SIZE> students;
+    std::array<student_s_t, SIZE> students;
+    size_t count;
 
 public:
-    // Конструктор
-    Exam();
-
-    // Деструктор
-    ~Exam();
-
-    // Метод для введення даних
-    void inputData();
-
-    // Метод для виведення даних
-    void displayData() const;
-
-    // Метод для перевірки валідності значень
-    void validateInput(const student_exam_t &student) const;
+    Student() : count(0) {}
+    void inputStudent();
+    void printStudents() const;
+    void updateGrade(int id, int newGrade);
 };
 
 #endif
