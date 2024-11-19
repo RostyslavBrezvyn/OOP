@@ -1,29 +1,39 @@
-#ifndef STUDENT_H
-#define STUDENT_H
+#include "student.h"
 
-#include <array>
-#include <string>
-#include <iostream>
+void Student::inputStudent() {
+    if (count >= SIZE) return;
 
-const size_t SIZE = 100;
+    student_s_t s;
+    std::cout << "Введіть ID: "; std::cin >> s.id;
+    std::cout << "Введіть ім'я: "; std::cin.ignore(); std::getline(std::cin, s.name);
+    std::cout << "Введіть курс: "; std::cin >> s.course;
+    std::cout << "Введіть оцінку: "; std::cin >> s.grade;
 
-struct student_s_t {
-    int id;
-    std::string name;
-    int course;
-    int grade;
-};
+    if (s.grade < 0 || s.grade > 100) {
+        std::cout << "Некоректна оцінка!\n"; return;
+    }
+    students[count++] = s;
+}
 
-class Student {
-private:
-    std::array<student_s_t, SIZE> students;
-    size_t count;
+void Student::printStudents() const {
+    for (size_t i = 0; i < count; i++) {
+        std::cout << "ID: " << students[i].id
+                  << ", Ім'я: " << students[i].name
+                  << ", Курс: " << students[i].course
+                  << ", Оцінка: " << students[i].grade << '\n';
+    }
+}
 
-public:
-    Student() : count(0) {}
-    void inputStudent();
-    void printStudents() const;
-    void updateGrade(int id, int newGrade);
-};
-
-#endif
+void Student::updateGrade(int id, int newGrade) {
+    if (newGrade < 0 || newGrade > 100) {
+        std::cout << "Некоректна оцінка!\n"; return;
+    }
+    for (size_t i = 0; i < count; i++) {
+        if (students[i].id == id) {
+            students[i].grade = newGrade;
+            std::cout << "Оцінка оновлена.\n";
+            return;
+        }
+    }
+    std::cout << "Студента з таким ID не знайдено!\n";
+}
