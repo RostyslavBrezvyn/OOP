@@ -26,4 +26,4 @@ public:
     void updateGrade(int id, int newGrade);
 };
 
-#endif
+#endif // STUDENT_H
