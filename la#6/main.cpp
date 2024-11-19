@@ -10,17 +10,26 @@ int main() {
         std::cin >> choice;
 
         switch (choice) {
-        case 1: group.inputStudent(); break;
-        case 2: group.printStudents(); break;
+        case 1:
+            group.inputStudent();
+            break;
+        case 2:
+            group.printStudents();
+            break;
         case 3: {
             int id, grade;
-            std::cout << "Введіть ID студента: "; std::cin >> id;
-            std::cout << "Введіть нову оцінку: "; std::cin >> grade;
+            std::cout << "Введіть ID студента: ";
+            std::cin >> id;
+            std::cout << "Введіть нову оцінку: ";
+            std::cin >> grade;
             group.updateGrade(id, grade);
             break;
         }
-        case 0: std::cout << "Вихід з програми...\n"; break;
-        default: std::cout << "Некоректний вибір!\n";
+        case 0:
+            std::cout << "Вихід з програми...\n";
+            break;
+        default:
+            std::cout << "Некоректний вибір!\n";
         }
     } while (choice != 0);
 
