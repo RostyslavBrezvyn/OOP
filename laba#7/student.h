@@ -25,14 +25,20 @@ public:
     // Деструктор
     ~Student();
 
-    // Додавання студента
+    // Додавання студента в кінець
     void addStudent(int id, const std::string& name, int course);
+
+    // Вставка студента в середину вектора
+    void insertStudent(int index, int id, const std::string& name, int course);
 
     // Видалення студента за ID
     bool removeStudent(int id);
 
     // Оновлення курсу студента
     bool updateStudentCourse(int id, int new_course);
+
+    // Обмін двох студентів
+    bool swapStudents(int id1, int id2);
 
     // Виведення списку студентів
     void printStudents() const;
