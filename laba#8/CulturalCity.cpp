@@ -4,7 +4,6 @@
 CulturalCity::CulturalCity(string name, int population) : City(name, population) {}
 
 void CulturalCity::displayData() const {
-    cout << "Cultural City - ";
+    cout << "Культурне місто - ";
     City::displayData();
 }
-
