@@ -1,67 +1,42 @@
 #include "student.h"
 
-// Конструктор
-Student::Student() {}
+int main() {
+    Student group;
 
-// Деструктор
-Student::~Student() {
-    clearStudents();
-}
+    // Додавання студентів
+    group.addStudent(1, "Нестор Руслан", 1);
+    group.addStudent(2, "Брезвин Ростислав", 3);
+    group.addStudent(3, "Савчак Роман", 2);
 
-// Додавання студента
-void Student::addStudent(int id, const std::string& name, int course) {
-    if (course <= 0 || course > 6) {
-        std::cout << "Помилка: Невалідний номер курсу!" << std::endl;
-        return;
-    }
-    students.emplace_back(id, name, course);
-}
+    // Виведення списку
+    std::cout << "\nПоточний список студентів:" << std::endl;
+    group.printStudents();
 
-// Видалення студента за ID
-bool Student::removeStudent(int id) {
-    for (auto it = students.begin(); it != students.end(); ++it) {
-        if (it->id == id) {
-            students.erase(it);
-            return true;
-        }
-    }
-    std::cout << "Студента з ID " << id << " не знайдено." << std::endl;
-    return false;
-}
+    // Вставка студента в середину вектора
+    std::cout << "\nВставка студента в середину списку (ID: 4) на позицію 1:" << std::endl;
+    group.insertStudent(1, 4, "Олексій Іванов", 2);
+    group.printStudents();
 
-// Оновлення курсу студента
-bool Student::updateStudentCourse(int id, int new_course) {
-    if (new_course <= 0 || new_course > 6) {
-        std::cout << "Помилка: Невалідний номер курсу!" << std::endl;
-        return false;
-    }
-    for (auto& student : students) {
-        if (student.id == id) {
-            student.course = new_course;
-            return true;
-        }
-    }
-    std::cout << "Студента з ID " << id << " не знайдено." << std::endl;
-    return false;
-}
+    // Оновлення курсу студента
+    std::cout << "\nОновлення курсу студента з ID 2:" << std::endl;
+    group.updateStudentCourse(2, 4);
 
-// Виведення списку студентів
-void Student::printStudents() const {
-    if (students.empty()) {
-        std::cout << "Список студентів порожній." << std::endl;
-        return;
-    }
+    // Обмін двох студентів
+    std::cout << "\nОбмін місцями студентів з ID 2 і 4:" << std::endl;
+    group.swapStudents(2, 4);
+    group.printStudents();
 
-    std::cout << "Список студентів:\n";
-    for (const auto& student : students) {
-        std::cout << "ID: " << student.id
-                  << ", Ім'я: " << student.name
-                  << ", Курс: " << student.course << std::endl;
-    }
-}
+    // Видалення студента
+    std::cout << "\nВидалення студента з ID 1:" << std::endl;
+    group.removeStudent(1);
 
-// Очищення списку студентів
-void Student::clearStudents() {
-    students.clear();
-    std::cout << "Список студентів очищено." << std::endl;
+    // Виведення оновленого списку
+    std::cout << "\nОновлений список студентів:" << std::endl;
+    group.printStudents();
+
+    // Очищення списку студентів
+    std::cout << "\nОчищення списку студентів:" << std::endl;
+    group.clearStudents();
+
+    return 0;
 }
