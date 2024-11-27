@@ -16,14 +16,15 @@ struct student_s_t {
 
 class Student {
 private:
-    std::array<student_s_t, SIZE> students;
-    size_t count;
+    std::array<student_s_t, SIZE> students; // Масив студентів
+    size_t count;                          // Лічильник студентів
 
 public:
     Student() : count(0) {}
-    void inputStudent();
-    void printStudents() const;
-    void updateGrade(int id, int newGrade);
+
+    void inputStudent();                  // Метод для додавання студента
+    void printStudents() const;           // Метод для виведення студентів
+    void updateGrade(int id, int newGrade); // Метод для оновлення оцінки
 };
 
 #endif // STUDENT_H
