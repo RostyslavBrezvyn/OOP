@@ -53,6 +53,38 @@ public:
         }
     }
 
+    // Метод для введення даних з клавіатури
+    void input() {
+        std::cout << "Введіть ім'я студента: ";
+        std::getline(std::cin, name);
+
+        do {
+            std::cout << "Введіть номер білета (позитивне ціле число): ";
+            std::cin >> ticketNumber;
+            if (ticketNumber <= 0) {
+                std::cout << "Некоректний номер білета! Спробуйте ще раз.\n";
+            }
+        } while (ticketNumber <= 0);
+
+        do {
+            std::cout << "Введіть оцінку (від 0 до 5): ";
+            std::cin >> grade;
+            if (grade < 0.0 || grade > 5.0) {
+                std::cout << "Некоректна оцінка! Спробуйте ще раз.\n";
+            }
+        } while (grade < 0.0 || grade > 5.0);
+
+        do {
+            std::cout << "Введіть курс (від 1 до 5): ";
+            std::cin >> year;
+            if (year <= 0 || year > 5) {
+                std::cout << "Некоректний курс! Спробуйте ще раз.\n";
+            }
+        } while (year <= 0 || year > 5);
+
+        std::cin.ignore(); // Очищення буфера після введення числа
+    }
+
     // Метод для виведення даних студента
     void display() const {
         std::cout << "Студент: " << name << ", Номер білета: " << ticketNumber
@@ -67,14 +99,20 @@ public:
 int main() {
     std::vector<Student> students;
 
+    // Введення одного студента з клавіатури
+    Student newStudent;
+    std::cout << "Введення даних для нового студента:\n";
+    newStudent.input();
+    students.push_back(newStudent);
+
     // Створення екземплярів студентів
-    students.emplace_back("John Doe", 1, 4.5, 2);
-    students.emplace_back("Jane Smith", 2, 3.8, 1);
-    students.emplace_back("Mike Brown", 3, 4.2, 2);
-    students.emplace_back("Anna White", 4, 5.0, 3);
+    students.emplace_back("Roman", 1, 4.5, 2);
+    students.emplace_back("Oleh", 2, 3.8, 1);
+    students.emplace_back("Vitaliy", 3, 4.2, 2);
+    students.emplace_back("Anna ", 4, 5.0, 3);
 
     // Виведення всіх студентів
-    std::cout << "Список всіх студентів:\n";
+    std::cout << "\nСписок всіх студентів:\n";
     for (const auto &student : students) {
         student.display();
     }
