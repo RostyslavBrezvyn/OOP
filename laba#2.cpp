@@ -6,9 +6,20 @@ double calculate_y(double x, double a, double b) {
     if (x <= 0) {
         return exp(-x) + b; // e^(-x) + b
     } else if (x > 0 && x < 1) {
-        return pow(a * a + 1 + x, 1.0 / 5.0); // (a^2 + 1 + x)^(1/5)
+        double temp = a * a + 1 + x;
+        if (temp > 0) {
+            return pow(temp, 1.0 / 5.0); // (a^2 + 1 + x)^(1/5)
+        } else {
+            printf("Помилка: вираз a^2 + 1 + x <= 0\n");
+            return NAN; // Повертаємо "нечисло" для помилки
+        }
     } else {
-        return b + sqrt(x); // b + sqrt(x)
+        if (x >= 0) {
+            return b + sqrt(x); // b + sqrt(x)
+        } else {
+            printf("Помилка: sqrt(x) для x < 0 неможливий\n");
+            return NAN;
+        }
     }
 }
 
@@ -27,7 +38,11 @@ int main() {
     y = calculate_y(x, a, b);
 
     // Виведення результату
-    printf("Результат: y = %.5f\n", y);
+    if (!isnan(y)) {
+        printf("Результат: y = %.5f\n", y);
+    } else {
+        printf("Обчислення не виконано через помилку у вхідних даних.\n");
+    }
 
     return 0;
 }
