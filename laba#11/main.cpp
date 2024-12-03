@@ -1,66 +1,40 @@
 #include <iostream>
-#include <string>
+#include <vector>
+#include "IndustrialCenter.h"
+#include "CulturalCenter.h"
+
 using namespace std;
 
-// Структура для адреси
-struct Address {
-    string street;
-    int number;
-    Address(string s, int n) : street(s), number(n) {}
-};
-
-// Батьківський клас "Місто"
-class City {
-protected:
-    string name;
-    Address address;
-public:
-    City(string n, Address addr) : name(n), address(addr) {}
-    virtual void display() {  // Віртуальна функція
-        cout << "Місто: " << name << ", Адреса: " << address.street << " " << address.number << endl;
-    }
-};
-
-// Дочірній клас "Промисловий центр"
-class IndustrialCenter : public City {
-private:
-    string industryType;
-public:
-    IndustrialCenter(string n, Address addr, string type) : City(n, addr), industryType(type) {}
-    void display() override {  // Перевизначена віртуальна функція
-        cout << "Промисловий центр: " << name << ", Тип промисловості: " << industryType 
-             << ", Адреса: " << address.street << " " << address.number << endl;
-    }
-};
-
-// Дочірній клас "Культурний центр"
-class CulturalCenter : public City {
-private:
-    string culturalType;
-public:
-    CulturalCenter(string n, Address addr, string type) : City(n, addr), culturalType(type) {}
-    void display() override {  // Перевизначена віртуальна функція
-        cout << "Культурний центр: " << name << ", Тип культури: " << culturalType 
-             << ", Адреса: " << address.street << " " << address.number << endl;
-    }
-};
-
 int main() {
-    // Створення об'єктів
-    Address addr1("Київська", 1);
-    Address addr2("Львівська", 10);
+    vector<City*> cities;
 
-    City* city1 = new IndustrialCenter("Київ", addr1, "Технологічний");
-    City* city2 = new CulturalCenter("Львів", addr2, "Музейний");
+    int choice;
+    do {
+        cout << "1. Додати промисловий центр\n"
+             << "2. Додати культурний центр\n"
+             << "3. Показати всі центри\n"
+             << "0. Вийти\n"
+             << "Ваш вибір: ";
+        cin >> choice;
 
-    // Виведення даних через віртуальні функції
-    city1->display();
-    city2->display();
+        if (choice == 1) {
+            IndustrialCenter* ic = new IndustrialCenter("", Address(), "");
+            ic->input();
+            cities.push_back(ic);
+        } else if (choice == 2) {
+            CulturalCenter* cc = new CulturalCenter("", Address(), "");
+            cc->input();
+            cities.push_back(cc);
+        } else if (choice == 3) {
+            for (const auto& city : cities) {
+                city->display();
+            }
+        }
+    } while (choice != 0);
 
-    // Очищення пам'яті
-    delete city1;
-    delete city2;
+    for (auto& city : cities) {
+        delete city;
+    }
 
     return 0;
 }
-
